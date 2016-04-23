@@ -175,6 +175,24 @@ const TablePage = React.createClass({
 
             <h1 className={css(ST.title)}>Weight Lifting Tracker</h1>
 
+            <div className={css(ST.addEntryButtonWrapper)}>
+                <button
+                    className={css(ST.button, ST.addEntryButton)}
+                    onClick={() => {
+                        this.props.addEntry();
+                    }}
+                >
+                    New Entry
+                    <span className={css(ST.plusIcon)}>
+                        <Icon
+                            type="plus"
+                            size={15}
+                            color="#fff"
+                        />
+                    </span>
+                </button>
+            </div>
+
             <div className={css(ST.table)}>
                 <div className={css(ST.column, ST.exerciseColumn)}>
                     <div
@@ -222,24 +240,6 @@ const TablePage = React.createClass({
                             className={css(ST.button, ST.buttonLight)}
                         >
                             Add Exercise
-                        </button>
-                    </div>
-                </div>
-                <div className={css(ST.column, ST.addEntryColumn)}>
-                    <div
-                        className={css(ST.cell)}
-                    >
-                        <button
-                            className={css(ST.button, ST.plusButton)}
-                            onClick={() => {
-                                this.props.addEntry();
-                            }}
-                        >
-                            <Icon
-                                type="plus"
-                                size={15}
-                                color="#fff"
-                            />
                         </button>
                     </div>
                 </div>
@@ -448,13 +448,18 @@ const ST = StyleSheet.create({
     button: SS.button,
     buttonLight: SS.buttonLight,
 
-    plusButton: {
-        height: 29 ,
-        lineHeight: 0,
-        width: 29,
-        padding: 0,
-        display: "flex",
-        justifyContent: "center",
+    addEntryButtonWrapper: {
+        textAlign: "center",
+        marginBottom: 20,
+    },
+    addEntryButton: {
+        fontSize: 20,
+        lineHeight: "40px",
+        paddingTop: 0,
+        paddingBottom: 0,
+    },
+    plusIcon: {
+        marginLeft: 10,
     },
 });
 
