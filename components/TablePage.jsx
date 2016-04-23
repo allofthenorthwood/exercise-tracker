@@ -212,7 +212,7 @@ const TablePage = React.createClass({
                             {exOptions.indexOf(exercise.name) > -1 &&
                                 <ExerciseImage
                                     type={exercise.name}
-                                    height={40}
+                                    height={50}
                                 />
                             }
                             <ClickToEdit
