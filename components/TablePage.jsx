@@ -247,7 +247,10 @@ const TablePage = React.createClass({
                     <div className={css(ST.resultsInner)}>
                         {entries && entries.map((entry, entryIdx) => {
                             return <div
-                                className={css(ST.column)}
+                                className={css(
+                                    ST.column,
+                                    entryIdx === 0 && ST.highlightColumn
+                                )}
                                 key={entry.id}
                             >
                                 <div
@@ -371,11 +374,15 @@ const ST = StyleSheet.create({
         borderRight: "1px solid #ddd",
         width: 120,
     },
+    highlightColumn: {
+        border: `2px solid ${SS.colors.green.light}`,
+    },
     addEntryColumn: {
         width: 60,
     },
     exerciseColumn: {
         width: 160,
+        borderRight: "none",
     },
     exerciseCell: {
         flexDirection: "column",
