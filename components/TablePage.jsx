@@ -206,7 +206,7 @@ const TablePage = React.createClass({
                             className={css(
                                 ST.cell,
                                 ST.exerciseCell,
-                                exerciseIdx % 2 && ST.darkCell
+                                !(exerciseIdx % 2) && ST.darkCell
                             )}
                         >
                             {exOptions.indexOf(exercise.name) > -1 &&
@@ -279,7 +279,7 @@ const TablePage = React.createClass({
                                         className={css(
                                             ST.cell,
                                             ST.dataCell,
-                                            exerciseIdx % 2 && ST.darkCell
+                                            !(exerciseIdx % 2) && ST.darkCell
                                         )}
                                         key={exercise.id}
                                     >
