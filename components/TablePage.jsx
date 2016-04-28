@@ -376,13 +376,14 @@ const ST = StyleSheet.create({
     },
     highlightColumn: {
         border: `2px solid ${SS.colors.green.light}`,
+        borderLeft: "none",
     },
     addEntryColumn: {
         width: 60,
     },
     exerciseColumn: {
         width: 160,
-        borderRight: "none",
+        borderRight: `2px solid ${SS.colors.green.light}`,
     },
     exerciseCell: {
         flexDirection: "column",
