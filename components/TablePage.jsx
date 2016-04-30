@@ -201,6 +201,7 @@ const TablePage = React.createClass({
                     </div>
                     {exercises && exercises.map((exercise, exerciseIdx) => {
                         const exOptions = ExerciseImage.exerciseOptions();
+                        const hasImage = exOptions.indexOf(exercise.name) > -1;
                         return <div
                             key={exercise.id}
                             className={css(
@@ -209,13 +210,13 @@ const TablePage = React.createClass({
                                 !(exerciseIdx % 2) && ST.darkCell
                             )}
                         >
-                            {exOptions.indexOf(exercise.name) > -1 &&
+                            {hasImage &&
                                 <ExerciseImage
                                     type={exercise.name}
                                     height={50}
                                 />
                             }
-                            <ClickToEdit
+                            {!hasImage && <ClickToEdit
                                 text={exercise.name}
                                 onSubmit={(newName) => {
                                     updateExercise(
@@ -223,7 +224,7 @@ const TablePage = React.createClass({
                                         newName
                                     );
                                 }}
-                            />
+                            />}
                             <button
                                 className={css(ST.exerciseDeleteButton)}
                                 onClick={() => {
