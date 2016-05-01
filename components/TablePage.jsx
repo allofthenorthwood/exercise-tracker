@@ -213,7 +213,7 @@ const TablePage = React.createClass({
                             {hasImage &&
                                 <ExerciseImage
                                     type={exercise.name}
-                                    height={50}
+                                    height={80}
                                 />
                             }
                             {!hasImage && <ClickToEdit
