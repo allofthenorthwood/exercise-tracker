@@ -202,6 +202,7 @@ const TablePage = React.createClass({
                     {exercises && exercises.map((exercise, exerciseIdx) => {
                         const exOptions = ExerciseImage.exerciseOptions();
                         const hasImage = exOptions.indexOf(exercise.name) > -1;
+                        const id = exercise.id;
                         return <div
                             key={exercise.id}
                             className={css(
@@ -210,6 +211,26 @@ const TablePage = React.createClass({
                                 !(exerciseIdx % 2) && ST.darkCell
                             )}
                         >
+                            <div className={css(ST.exerciseControls)}>
+                                <button
+                                    className={css(ST.exerciseMoveUpButton)}
+                                    onClick={() => {
+                                        this.props.moveExerciseUp(id);
+                                    }}
+                                >^</button>
+                                <button
+                                    className={css(ST.exerciseDeleteButton)}
+                                    onClick={() => {
+                                        this.props.deleteExercise(id);
+                                    }}
+                                >&times;</button>
+                                <button
+                                    className={css(ST.exerciseMoveDownButton)}
+                                    onClick={() => {
+                                        this.props.moveExerciseDown(id);
+                                    }}
+                                >v</button>
+                            </div>
                             {hasImage &&
                                 <ExerciseImage
                                     type={exercise.name}
@@ -219,18 +240,9 @@ const TablePage = React.createClass({
                             {!hasImage && <ClickToEdit
                                 text={exercise.name}
                                 onSubmit={(newName) => {
-                                    updateExercise(
-                                        exercise.id,
-                                        newName
-                                    );
+                                    updateExercise(id, newName);
                                 }}
                             />}
-                            <button
-                                className={css(ST.exerciseDeleteButton)}
-                                onClick={() => {
-                                    this.props.deleteExercise(exercise.id);
-                                }}
-                            >&times;</button>
                         </div>;
                     })}
                     <div
@@ -438,6 +450,10 @@ const ST = StyleSheet.create({
             opacity: 1,
         },
     },
+    exerciseControls: {
+        position: "absolute",
+        left: -20,
+    },
     exerciseDeleteButton: {
         background: "none",
         border: "none",
@@ -448,10 +464,6 @@ const ST = StyleSheet.create({
         ":hover": {
             opacity: 1,
         },
-
-        position: "absolute",
-        top: 2,
-        right: 2,
     },
 
     button: SS.button,
