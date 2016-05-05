@@ -213,11 +213,20 @@ const TablePage = React.createClass({
                         >
                             <div className={css(ST.exerciseControls)}>
                                 <button
-                                    className={css(ST.exerciseMoveUpButton)}
+                                    className={css(
+                                        ST.exerciseMoveButton,
+                                        ST.exerciseMoveUpButton
+                                    )}
                                     onClick={() => {
                                         this.props.moveExerciseUp(id);
                                     }}
-                                >^</button>
+                                >
+                                    <Icon
+                                        type="angleBracketLeft"
+                                        color="#999"
+                                        size="15"
+                                    />
+                                </button>
                                 <button
                                     className={css(ST.exerciseDeleteButton)}
                                     onClick={() => {
@@ -225,11 +234,20 @@ const TablePage = React.createClass({
                                     }}
                                 >&times;</button>
                                 <button
-                                    className={css(ST.exerciseMoveDownButton)}
+                                    className={css(
+                                        ST.exerciseMoveButton,
+                                        ST.exerciseMoveDownButton
+                                    )}
                                     onClick={() => {
                                         this.props.moveExerciseDown(id);
                                     }}
-                                >v</button>
+                                >
+                                    <Icon
+                                        type="angleBracketLeft"
+                                        color="#999"
+                                        size="15"
+                                    />
+                                </button>
                             </div>
                             {hasImage &&
                                 <ExerciseImage
@@ -481,6 +499,16 @@ const ST = StyleSheet.create({
     },
     plusIcon: {
         marginLeft: 10,
+    },
+
+    exerciseMoveButton: {
+
+    },
+    exerciseMoveUpButton: {
+        transform: "rotate(90deg)",
+    },
+    exerciseMoveDownButton: {
+        transform: "rotate(-90deg)",
     },
 });
 
