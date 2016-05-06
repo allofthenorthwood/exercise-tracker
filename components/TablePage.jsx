@@ -502,7 +502,8 @@ const ST = StyleSheet.create({
     },
 
     exerciseMoveButton: {
-
+        background: "none",
+        border: "none",
     },
     exerciseMoveUpButton: {
         transform: "rotate(90deg)",
