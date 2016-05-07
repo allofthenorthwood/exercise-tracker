@@ -468,21 +468,6 @@ const ST = StyleSheet.create({
             opacity: 1,
         },
     },
-    exerciseControls: {
-        position: "absolute",
-        left: -20,
-    },
-    exerciseDeleteButton: {
-        background: "none",
-        border: "none",
-        color: "#888",
-        cursor: "pointer",
-        fontSize: 16,
-        opacity: 0.8,
-        ":hover": {
-            opacity: 1,
-        },
-    },
 
     button: SS.button,
     buttonLight: SS.buttonLight,
@@ -501,15 +486,37 @@ const ST = StyleSheet.create({
         marginLeft: 10,
     },
 
+    exerciseControls: {
+        position: "absolute",
+        left: -30,
+        width: 30,
+        textAlign: "right",
+    },
+    exerciseDeleteButton: {
+        background: "none",
+        border: "none",
+        color: "#888",
+        cursor: "pointer",
+        fontSize: 25,
+        lineHeight: 1,
+        marginRight: 4,
+        opacity: 0.8,
+        ":hover": {
+            opacity: 1,
+        },
+    },
     exerciseMoveButton: {
         background: "none",
         border: "none",
+        display: "flex",
     },
     exerciseMoveUpButton: {
         transform: "rotate(90deg)",
+        marginTop: 7,
     },
     exerciseMoveDownButton: {
         transform: "rotate(-90deg)",
+        marginTop: 4,
     },
 });
 
