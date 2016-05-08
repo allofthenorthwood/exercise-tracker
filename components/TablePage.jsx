@@ -212,12 +212,13 @@ const TablePage = React.createClass({
                             )}
                         >
                             <div className={css(ST.exerciseControls)}>
-                                <button
+                                <a
                                     className={css(
                                         ST.exerciseMoveButton,
                                         ST.exerciseMoveUpButton
                                     )}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault();
                                         this.props.moveExerciseUp(id);
                                     }}
                                 >
@@ -226,19 +227,20 @@ const TablePage = React.createClass({
                                         color="#999"
                                         size="15"
                                     />
-                                </button>
+                                </a>
                                 <button
                                     className={css(ST.exerciseDeleteButton)}
                                     onClick={() => {
                                         this.props.deleteExercise(id);
                                     }}
                                 >&times;</button>
-                                <button
+                                <a
                                     className={css(
                                         ST.exerciseMoveButton,
                                         ST.exerciseMoveDownButton
                                     )}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault();
                                         this.props.moveExerciseDown(id);
                                     }}
                                 >
@@ -247,7 +249,7 @@ const TablePage = React.createClass({
                                         color="#999"
                                         size="15"
                                     />
-                                </button>
+                                </a>
                             </div>
                             {hasImage &&
                                 <ExerciseImage
@@ -490,6 +492,7 @@ const ST = StyleSheet.create({
         position: "absolute",
         left: -30,
         width: 30,
+        top: 15,
         textAlign: "right",
     },
     exerciseDeleteButton: {
@@ -499,8 +502,9 @@ const ST = StyleSheet.create({
         cursor: "pointer",
         fontSize: 25,
         lineHeight: 1,
-        marginRight: 4,
+        margin: "4px 1px 0 0",
         opacity: 0.8,
+
         ":hover": {
             opacity: 1,
         },
@@ -509,14 +513,17 @@ const ST = StyleSheet.create({
         background: "none",
         border: "none",
         display: "flex",
+        padding: 0,
+        alignItems: "center",
+        justifyContent: "center",
     },
     exerciseMoveUpButton: {
         transform: "rotate(90deg)",
-        marginTop: 7,
     },
     exerciseMoveDownButton: {
         transform: "rotate(-90deg)",
-        marginTop: 4,
+        height: 30,
+        width: 30,
     },
 });
 
