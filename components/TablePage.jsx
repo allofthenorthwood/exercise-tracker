@@ -225,7 +225,7 @@ const TablePage = React.createClass({
                                     <Icon
                                         type="angleBracketLeft"
                                         color="#999"
-                                        size="15"
+                                        size={15}
                                     />
                                 </a>
                                 <button
@@ -247,7 +247,7 @@ const TablePage = React.createClass({
                                     <Icon
                                         type="angleBracketLeft"
                                         color="#999"
-                                        size="15"
+                                        size={15}
                                     />
                                 </a>
                             </div>
