@@ -490,7 +490,7 @@ const ST = StyleSheet.create({
 
     exerciseControls: {
         position: "absolute",
-        left: -30,
+        left: -35,
         width: 30,
         top: 15,
         textAlign: "right",
