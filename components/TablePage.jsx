@@ -213,6 +213,7 @@ const TablePage = React.createClass({
                         >
                             <div className={css(ST.exerciseControls)}>
                                 <a
+                                    href="#"
                                     className={css(
                                         ST.exerciseMoveButton,
                                         ST.exerciseMoveUpButton
@@ -235,6 +236,7 @@ const TablePage = React.createClass({
                                     }}
                                 >&times;</button>
                                 <a
+                                    href="#"
                                     className={css(
                                         ST.exerciseMoveButton,
                                         ST.exerciseMoveDownButton
