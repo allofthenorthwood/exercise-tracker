@@ -518,6 +518,10 @@ const ST = StyleSheet.create({
         padding: 0,
         alignItems: "center",
         justifyContent: "center",
+        opacity: 0.7,
+        ":hover": {
+            opacity: 1,
+        },
     },
     exerciseMoveUpButton: {
         transform: "rotate(90deg)",
