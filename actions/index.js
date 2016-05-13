@@ -74,6 +74,18 @@ const deleteExercise = (id) => {
         id,
     };
 };
+const moveExerciseUp = (id) => {
+    return {
+        type: 'MOVE_EXERCISE_UP',
+        id,
+    };
+};
+const moveExerciseDown = (id) => {
+    return {
+        type: 'MOVE_EXERCISE_DOWN',
+        id,
+    };
+};
 
 module.exports = {
     login,
@@ -89,4 +101,6 @@ module.exports = {
     addExercise,
     updateExercise,
     deleteExercise,
+    moveExerciseUp,
+    moveExerciseDown,
 };

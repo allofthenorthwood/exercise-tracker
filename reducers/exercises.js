@@ -54,6 +54,32 @@ const exercises = (state = [], action) => {
                 state[updatedExercise], action);
             return newState;
         }
+        case 'MOVE_EXERCISE_UP': {
+            const movedExercise = state.findIndex((a) => {
+                return a.id === action.id;
+            });
+            if (movedExercise === 0) {
+                return state;
+            }
+            const newState = [...state];
+            const temp = newState[movedExercise - 1];
+            newState[movedExercise - 1] = newState[movedExercise];
+            newState[movedExercise] = temp;
+            return newState;
+        }
+        case 'MOVE_EXERCISE_DOWN': {
+            const movedExercise = state.findIndex((a) => {
+                return a.id === action.id;
+            });
+            if (movedExercise === state.length - 1) {
+                return state;
+            }
+            const newState = [...state];
+            const temp = newState[movedExercise + 1];
+            newState[movedExercise + 1] = newState[movedExercise];
+            newState[movedExercise] = temp;
+            return newState;
+        }
         default:
             return state;
     }
