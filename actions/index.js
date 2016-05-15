@@ -68,9 +68,9 @@ const updateExercise = (id, name) => {
         name,
     };
 };
-const deleteExercise = (id) => {
+const archiveExercise = (id) => {
     return {
-        type: 'DELETE_EXERCISE',
+        type: 'ARCHIVE_EXERCISE',
         id,
     };
 };
@@ -100,7 +100,7 @@ module.exports = {
     loadExercises,
     addExercise,
     updateExercise,
-    deleteExercise,
+    archiveExercise,
     moveExerciseUp,
     moveExerciseDown,
 };
