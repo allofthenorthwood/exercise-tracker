@@ -1,14 +1,12 @@
 const { StyleSheet, css } = require('../lib/aphrodite.js');
 const React = require("react");
 
-const Firebase = require('firebase');
-const firebaseUrl = require('../firebaseUrl.js');
-
 const RP = React.PropTypes;
 
 const LoginPage = React.createClass({
     propTypes: {
         login: RP.func,
+        rootRef: RP.any,
     },
     getInitialState: function() {
         return {
@@ -17,50 +15,40 @@ const LoginPage = React.createClass({
             error: null,
         };
     },
-    onSubmit: function(e) {
-        e.preventDefault();
-        this.createUser();
-    },
-    createUser: function() {
-        const ref = new Firebase(firebaseUrl);
-        ref.createUser({
-                email: this.state.email,
-                password: this.state.password,
-            }, (error, userData) => {
+    createUser: function(e) {
+        e && e.preventDefault();
+        firebase.auth().createUserWithEmailAndPassword(
+            this.state.email, this.state.password)
+        .catch((error) => {
+                console.log(error)
             if (error) {
                 if (error.message ===
-                        "The specified email address is already in use.") {
+                        "The email address is already in use by another account.") {
                     this.login();
                 } else {
                     this.setState({
                         error: error.message,
                     });
                 }
-            } else {
-                this.login();
             }
         });
     },
-    login: function() {
-        const ref = new Firebase(firebaseUrl);
-        ref.authWithPassword({
-                email: this.state.email,
-                password: this.state.password,
-            }, (error, authData) => {
+    login: function(e) {
+        e && e.preventDefault();
+        firebase.auth().signInWithEmailAndPassword(
+            this.state.email, this.state.password)
+        .catch(
+            (error) => {
             if (error) {
                 this.setState({
                     error: error.message,
                 });
-            } else {
-                this.setState({
-                    error: null,
-                }, () => this.props.login(authData.uid));
             }
         });
     },
     render: function() {
         return <div className={css(ST.wrapper)}>
-            <form onSubmit={this.onSubmit} className={css(ST.form)}>
+            <form onSubmit={this.login} className={css(ST.form)}>
                 <h1 className={css(ST.title)}>Exercise Tracker</h1>
                 {this.state.error && <div className={css(ST.error)}>
                     {this.state.error}
@@ -90,7 +78,13 @@ const LoginPage = React.createClass({
                     <input
                         className={css(ST.input, ST.submit)}
                         type="submit"
-                        value="Login / Signup"
+                        value="Login"
+                    />
+                    <input
+                        className={css(ST.input, ST.submit)}
+                        type="button"
+                        onClick={this.createUser}
+                        value="Signup"
                     />
                 </div>
             </form>

@@ -1,14 +1,21 @@
 const React = require('react');
 const { connect } = require('react-redux');
 
-const Firebase = require('firebase');
-const firebaseUrl = require('./firebaseUrl.js');
+const firebase = require('firebase');
 
 const actions = require('./actions/index.js');
 const TablePage = require('./components/TablePage.jsx');
 const LoginPage = require('./components/LoginPage.jsx');
 
-const ref = new Firebase(firebaseUrl);
+const config = {
+    apiKey: "AIzaSyAY2X7ebiNT8N-uyGzCyWqgvbBE4PuJh3c",
+    authDomain: "fiery-heat-5035.firebaseapp.com",
+    databaseURL: "https://fiery-heat-5035.firebaseio.com",
+    storageBucket: "fiery-heat-5035.appspot.com",
+};
+firebase.initializeApp(config);
+
+const rootRef = firebase.database().ref();
 
 const RP = React.PropTypes;
 
@@ -34,6 +41,7 @@ let App = React.createClass({
     },
 
     loadUserData: function() {
+        return false;
         const user = ref.getAuth();
         if (!this.props.user && user) {
             this.props.login(user.uid);
@@ -75,7 +83,7 @@ let App = React.createClass({
         if (!this.props.user) {
             return <LoginPage
                 login={this.props.login}
-                logout={this.props.logout}
+                rootRef={rootRef}
             />;
         }
         return <TablePage {...this.props} logout={this.logout} />;
