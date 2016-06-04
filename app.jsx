@@ -17,6 +17,7 @@ let App = React.createClass({
         user: RP.string,
         entries: RP.array,
         exercises: RP.array,
+        arcivedExercises: RP.array,
 
         login: RP.func,
         loadData: RP.func,
@@ -40,19 +41,25 @@ let App = React.createClass({
         if (user) {
             const child = ref.child("users").child(user.uid);
             child.once("value").then((data) => {
+                const archivedExercises = data
+                    .child("archivedExercises").val();
                 const exercises = data.child("exercises").val();
                 const entries = data.child("entries").val();
-                this.props.loadData(entries, exercises);
+                this.props.loadData(entries, exercises, archivedExercises);
             }).catch((e) => {
                 console.log(e);
             });
         }
     },
     saveUserData: function() {
-        if (this.props.exercises.length || this.props.entries.length) {
+        if (this.props.exercises.length ||
+            this.props.entries.length ||
+            this.props.archivedExercises.length
+        ) {
             const user = ref.getAuth();
             const child = ref.child("users").child(user.uid);
             child.update({
+                archivedExercises: this.props.archivedExercises || [],
                 exercises: this.props.exercises,
                 entries: this.props.entries,
             });
@@ -81,14 +88,16 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        loadData: (entries, exercises) => {
+        loadData: (entries, exercises, archivedExercises) => {
             dispatch(actions.loadExercises(exercises));
             dispatch(actions.loadEntries(entries));
+            dispatch(actions.loadArchivedExercises(archivedExercises));
         },
         login: (userId) => {
             dispatch(actions.login(userId));
         },
         logout: () => {
+            dispatch(actions.loadArchivedExercises(null));
             dispatch(actions.loadExercises(null));
             dispatch(actions.loadEntries(null));
             dispatch(actions.logout());
@@ -109,8 +118,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         addExercise: (name) => {
             dispatch(actions.addExercise(name));
         },
-        archiveExercise: (id) => {
-            dispatch(actions.archiveExercise(id));
+        archiveExercise: (id, exerciseData) => {
+            dispatch(actions.archiveExercise(id, exerciseData));
         },
         moveExerciseUp: (id) => {
             dispatch(actions.moveExerciseUp(id));

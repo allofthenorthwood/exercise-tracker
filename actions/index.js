@@ -55,6 +55,12 @@ const loadExercises = (exercises) => {
         exercises: exercises,
     };
 };
+const loadArchivedExercises = (archivedExercises) => {
+    return {
+        type: 'LOAD_ARCHIVED_EXERCISES',
+        archivedExercises: archivedExercises,
+    };
+};
 const addExercise = (name) => {
     return {
         type: 'ADD_EXERCISE',
@@ -68,10 +74,11 @@ const updateExercise = (id, name) => {
         name,
     };
 };
-const archiveExercise = (id) => {
+const archiveExercise = (id, exercise) => {
     return {
         type: 'ARCHIVE_EXERCISE',
         id,
+        exercise,
     };
 };
 const moveExerciseUp = (id) => {
@@ -98,6 +105,7 @@ module.exports = {
     updateEntryDate,
 
     loadExercises,
+    loadArchivedExercises,
     addExercise,
     updateExercise,
     archiveExercise,

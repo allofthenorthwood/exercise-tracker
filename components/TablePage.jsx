@@ -112,7 +112,7 @@ const TablePage = React.createClass({
         addExerciseToEntry: RP.func,
         addEntry: RP.func,
         deleteEntry: RP.func,
-        deleteExercise: RP.func,
+        archiveExercise: RP.func,
         updateEntryDate: RP.func,
         updateExercise: RP.func,
     },
@@ -154,7 +154,7 @@ const TablePage = React.createClass({
         });
 
         const exercises = this.props.exercises.filter((e) => {
-            return !e.deleted;
+            return !e.archived;
         });
 
         return (<div className={css(ST.page)}>
@@ -232,7 +232,8 @@ const TablePage = React.createClass({
                                 <button
                                     className={css(ST.exerciseDeleteButton)}
                                     onClick={() => {
-                                        this.props.deleteExercise(id);
+                                        this.props.archiveExercise(id,
+                                            exercise);
                                     }}
                                 >&times;</button>
                                 <a

@@ -9,18 +9,12 @@ const exercise = (state, action) => {
                 id: highestId + 1,
                 exId: `ex-${highestId + 1}`,
                 name: action.name || 'new exercise',
-                archived: false,
             };
         }
         case 'UPDATE_EXERCISE':
             return {
                 ...state,
                 name: action.name || state.name,
-            };
-        case 'ARCHIVE_EXERCISE':
-            return {
-                ...state,
-                archived: true,
             };
         default:
             return state;
@@ -37,12 +31,12 @@ const exercises = (state = [], action) => {
                 exercise(state, action),
             ];
         case 'ARCHIVE_EXERCISE': {
-            const updatedExercise = state.findIndex((a) => {
+            // Remove from this list (it gets added to archivedExercises)
+            const removedExercise = state.findIndex((a) => {
                 return a.id === action.id;
             });
             const newState = [...state];
-            newState[updatedExercise] = exercise(
-                state[updatedExercise], action);
+            newState.splice(removedExercise, 1);
             return newState;
         }
         case 'UPDATE_EXERCISE': {
