@@ -54,7 +54,7 @@ let App = React.createClass({
             this.props.login(user.uid);
         }
         if (user) {
-            const child = ref.child("users").child(user.uid);
+            const child = rootRef.child("users").child(user.uid);
             child.once("value").then((data) => {
                 const archivedExercises = data
                     .child("archivedExercises").val();
@@ -64,19 +64,21 @@ let App = React.createClass({
             }).catch((e) => {
                 console.log(e);
             });
+        } else {
+            this.props.loadData(null, null, null);
         }
     },
     saveUserData: function() {
+        const user = firebase.auth().currentUser;
         if (this.props.exercises.length ||
             this.props.entries.length ||
             this.props.archivedExercises.length
         ) {
-            const user = ref.getAuth();
-            const child = ref.child("users").child(user.uid);
+            const child = rootRef.child("users").child(user.uid);
             child.update({
                 archivedExercises: this.props.archivedExercises || [],
-                exercises: this.props.exercises,
-                entries: this.props.entries,
+                exercises: this.props.exercises || [],
+                entries: this.props.entries || [],
             });
         }
     },
@@ -86,7 +88,9 @@ let App = React.createClass({
         }
         return <TablePage
             {...this.props}
-            logout={() =>firebase.auth().signOut()}
+            logout={() =>{
+                firebase.auth().signOut();
+            }}
         />;
     }
 });
@@ -106,9 +110,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(actions.login(userId));
         },
         logout: () => {
-            dispatch(actions.loadArchivedExercises(null));
-            dispatch(actions.loadExercises(null));
-            dispatch(actions.loadEntries(null));
             dispatch(actions.logout());
         },
         addEntry: () => {
