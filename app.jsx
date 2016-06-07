@@ -27,9 +27,17 @@ let App = React.createClass({
         arcivedExercises: RP.array,
 
         login: RP.func,
+        logout: RP.func,
         loadData: RP.func,
     },
     componentDidMount: function() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.props.login(user.uid);
+            } else {
+                this.props.logout();
+            }
+        });
         this.loadUserData();
     },
     componentDidUpdate: function(newProps) {
@@ -41,8 +49,7 @@ let App = React.createClass({
     },
 
     loadUserData: function() {
-        return false;
-        const user = ref.getAuth();
+        const user = firebase.auth().currentUser;
         if (!this.props.user && user) {
             this.props.login(user.uid);
         }
@@ -73,20 +80,14 @@ let App = React.createClass({
             });
         }
     },
-
-    logout: function() {
-        this.props.logout();
-        ref.unauth();
-    },
-
     render: function() {
         if (!this.props.user) {
-            return <LoginPage
-                login={this.props.login}
-                rootRef={rootRef}
-            />;
+            return <LoginPage/>;
         }
-        return <TablePage {...this.props} logout={this.logout} />;
+        return <TablePage
+            {...this.props}
+            logout={() =>firebase.auth().signOut()}
+        />;
     }
 });
 

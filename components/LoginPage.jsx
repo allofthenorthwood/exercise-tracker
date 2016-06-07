@@ -4,10 +4,6 @@ const React = require("react");
 const RP = React.PropTypes;
 
 const LoginPage = React.createClass({
-    propTypes: {
-        login: RP.func,
-        rootRef: RP.any,
-    },
     getInitialState: function() {
         return {
             email: '',
@@ -18,8 +14,8 @@ const LoginPage = React.createClass({
     createUser: function(e) {
         e && e.preventDefault();
         firebase.auth().createUserWithEmailAndPassword(
-            this.state.email, this.state.password)
-        .catch((error) => {
+            this.state.email, this.state.password
+        ).catch((error) => {
                 console.log(error)
             if (error) {
                 if (error.message ===
@@ -36,8 +32,8 @@ const LoginPage = React.createClass({
     login: function(e) {
         e && e.preventDefault();
         firebase.auth().signInWithEmailAndPassword(
-            this.state.email, this.state.password)
-        .catch(
+            this.state.email, this.state.password
+        ).catch(
             (error) => {
             if (error) {
                 this.setState({
